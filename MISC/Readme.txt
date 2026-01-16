@@ -1,1 +1,2 @@
-https://openalex.org/settings/api GET YOUR API KEY HERE AND UPDATE .env
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull llama3.2:3b

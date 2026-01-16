@@ -67,4 +67,5 @@ def display_papers(papers):
         print("-" * 50)
 
 p = prompts.get_user_prompt()
+print(p)
 display_papers(search_openalex(p))
