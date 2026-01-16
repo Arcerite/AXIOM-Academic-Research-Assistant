@@ -14,6 +14,7 @@ Rules:
 - Prefer short, canonical phrases used in paper titles
 - If the question is already suitable, return it unchanged
 - Output ONLY the optimized search query
+- Keep things as simple as possible
 
 User question:
 "{question}"
