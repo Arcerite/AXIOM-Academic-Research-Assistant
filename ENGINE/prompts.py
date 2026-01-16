@@ -1,5 +1,5 @@
 #This file will handle everything from user input, it will parse the input, classify it, and fix prompt to be better for querying the model
-import llm
+from ENGINE import llm
 
 MODEL = "llama3.2:3b"
 

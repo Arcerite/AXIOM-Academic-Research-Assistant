@@ -1,7 +1,9 @@
 #Using OpenAlex to get information about academic papers, authors, and institutions, as well as the fixed prompt, we search and collect data
 
 import requests
-import prompts
+
+
+ABSTRACT_ONLY =True #Set to false to get papers without abstracts too
 
 def search_openalex(query, per_page=5):
     """Search OpenAlex for academic papers matching the query."""
@@ -10,10 +12,17 @@ def search_openalex(query, per_page=5):
     url = "https://api.openalex.org/works"
     
     # OpenAlex uses a simple GET request with filters
-    params = {
-        "filter": f"title.search:{query},abstract.search:{query}",  # search title and abstract
+    if ABSTRACT_ONLY:
+        params = {
+        "filter": f"has_abstract:true,title.search:{query},abstract.search:{query}",
         "per-page": per_page
-    }
+        }
+    else:
+
+        params = {
+            "filter": f"title.search:{query},abstract.search:{query}",  # search title and abstract
+            "per-page": per_page
+        }
     
     # Make the request to OpenAlex
     response = requests.get(url, params=params)
@@ -66,6 +75,4 @@ def display_papers(papers):
         
         print("-" * 50)
 
-p = prompts.get_user_prompt()
-print(p)
-display_papers(search_openalex(p))
+
