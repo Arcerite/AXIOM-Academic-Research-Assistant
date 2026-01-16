@@ -1,0 +1,68 @@
+Start of project, 1/16/26
+
+After watching some southpark (and personal expierence with ai) AI has 
+two main problems. those being that ai will either kiss your ass so much
+
+Example:
+	-I want to start a new restuarant that turns french fries into lettuce
+
+        That’s a wild concept—and honestly, kind of brilliant if you lean into it the right way. Let’s shape it into something that actually works as a restaurant idea instead of taking it literally.
+
+...
+
+Or it just makes shit up to please you
+
+there have been instances where it even agrees that you should kys 
+
+This is flawed
+
+This is due to how these models function
+
+All of these models are made to keep the user talking, to get more data out of them
+
+Remeber, if the product is free... then you are the price
+
+While I am not capable of writing a version of chatgpt or gemini that is powerful and always correct, instead i can focus on something smaller
+
+Google scholar has a ton of useful articles... however papers like those are always so fucking long and wordy... and finding what your looking for is impossible
+
+So instead of the ai "Thinking" it leverages human thinking instead..
+And since im tired of typing here is how chatgpt would make the over view
+
+High-level explanation (casual but serious):
+
+I’m building a truth-focused question-answer system. It’s kind of like a better version of Google for factual questions. Instead of giving you a bunch of links or opinions, it pulls from high-quality academic and government sources and gives you a direct answer, a confidence level, and the sources it’s based on.
+
+If they ask how it’s different from AI chatbots:
+
+It’s not trying to be conversational or creative. It doesn’t generate opinions, code, or stories. It only answers questions that actually have verifiable answers, and it’s designed to say “we don’t know” when the evidence isn’t strong.
+
+If they ask how it works (without details):
+
+When you ask a question, it looks for consensus in trusted research, breaks down the technical language into something readable, and only responds if there’s enough evidence to be confident. Otherwise, it explains why it can’t give a definitive answer.
+
+If they ask “why?”
+
+Because people shouldn’t have to read a 40-page paper to understand basic facts, and they also shouldn’t be misled by oversimplified or biased answers.
+
+One-sentence version (very useful):
+
+It’s a system that compresses reliable research into clear, evidence-based answers, without opinions or guesswork.
+
+
+DAY 1 of Progress:
+
+        Project has been giving a name, AXIOM, a statement accepted as true based on evidence or definition
+        This fits perfectly with the project and sounds cool af
+
+        The goal is to have a gui (eventually) that will ask for user input (like chatgpt) and then a llm takes this input 
+        and turns it into something that would get better results when querying Semantic Scholar API
+
+        This is then quered and responses are found... An ai collects the data from the best fit articles. sumarzises it, and provides links to the articles
+
+        AI NEVER "MAKES" INFORMATION, IT MEARLY SUMARIZES AND MAKES THINGS MORE EFFICENT
+
+        Language will be python because python makes me happy :)
+
+        File structure has been setup, I want to make a gui since i have little expierence with them (maybe eventually the app will be just a little widget )
+        
