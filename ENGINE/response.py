@@ -44,7 +44,7 @@ Rules:
 - Keep numbered citations ([1], [2], etc.)
 - If abstracts disagree, note the disagreement
 - Provide a confidence estimate (0-100%) based on the number and clarity of abstracts
-- Output in plain English
+- Output in plain English that a non-expert can understand
 
 Abstracts:
 {chunk_text}
@@ -69,6 +69,12 @@ Intermediate Summaries:
 {"\n\n".join(chunk_summaries)}
 
 Final Summary:
+
+- Do not speculate beyond the abstracts
+- Keep numbered citations ([1], [2], etc.)
+- If abstracts disagree, note the disagreement
+- Provide a confidence estimate (0-100%) based on the number and clarity of abstracts
+- Output in plain English that a non-expert can understand
 """
     final_summary = run_llm(combined_prompt)
     return final_summary.strip()

@@ -66,3 +66,13 @@ DAY 1 of Progress:
 
         File structure has been setup, I want to make a gui since i have little expierence with them (maybe eventually the app will be just a little widget )
         
+END DAY 1:
+        Day 1 was extremly productive and I was able to get a vast majority of the things I wanted as well as a barebones V1 done 
+        Things to change
+        -Make a gui still (save for last)
+        -Make it find more articles (less "no abstracts found")
+        -SPEEEEEEEEEEEEEEEEEEEEEEED needs to go up (multithreading)
+        -Loading bar would be nice
+        -Better simple english in summary
+        -More filters
+        

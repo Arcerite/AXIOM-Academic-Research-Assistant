@@ -1,5 +1,4 @@
 import subprocess
-import json
 
 MODEL = "llama3.2:3b"
 
