@@ -58,9 +58,6 @@ def search():
 def filters():
     clear_screen()
     print("Filter settings are not implemented yet.")
-    print("\n\nReturn to main menu? (yes/no)")
-    if input().strip().lower() == "no":
-        quit(0)
 
 if __name__ == "__main__":
     while True:
