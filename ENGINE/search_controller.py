@@ -1,7 +1,7 @@
 from ENGINE.openalex import query_openalex
 from ENGINE.rewrite import rewrite_query
 
-MAX_ATTEMPTS = 5
+MAX_ATTEMPTS = 10
 # Function to search for papers with rephrasing attempts
 def search(query: str)-> tuple[list[dict], str | None]:
     current_query = query
