@@ -28,22 +28,28 @@ def search():
     clear_screen()
     query = input("Enter your search query: ").strip()
 
+    start_time= time.time()
     print("\n🔎 Searching for papers...\n")
     results = Search.search(query)
+    end_time= time.time()
+    print(f"⏱️ Search completed in {end_time - start_time:.2f} seconds.\n")
 
     if not results:
         print("❌ No results found.")
         input("\nPress Enter to return...")
         return
-
+    start_time = time.time()
     print("🧠 Summarizing abstracts...\n")
     summary = summarize_abstracts(results)
-
+    end_time = time.time()
+    print(f"⏱️ Summarization completed in {end_time - start_time:.2f} seconds.\n")
+    
     print("=" * 80)
     print("📌 AI Summary")
     print("=" * 80)
     print(summary)
     print("=" * 80 + "\n")
+    input("Press Enter to view search results...\n")
 
     for idx, work in enumerate(results, start=1):
         print(f"📄 Result {idx}")
