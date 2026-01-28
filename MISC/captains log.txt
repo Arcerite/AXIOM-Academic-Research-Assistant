@@ -85,3 +85,10 @@ END DAY 2:
                 -Loading bar
                 -Features?
 
+
+Day 3:
+        Speed is not fast enough, im kicking myself in the ass by being restricted
+        Deciding to split AXIOM in two, one version which is done, Barebones and no API needed (till feb 13th)
+        The other version will use Free AI (Groq for AI and OpenAlex Embbeed searceh)
+        This Free Version will be the version that lives on
+        

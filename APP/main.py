@@ -1,26 +1,10 @@
 import os,time
-from ENGINE import search_controller,ai_sum
+from ENGINE import search as Search, filters as Filter
+from ENGINE.groq_sum import summarize_abstracts
 
 def clear_screen():
     # Clear terminal screen based on OS
     os.system('cls' if os.name == 'nt' else 'clear')
-
-
-def view_info(papers):
-    # Display paper information, abstracts truncated to 500 chars
-    for paper in papers:  # no [0] here
-        if paper.get("title"):
-            print(f"\nTitle: {paper['title']}")
-        if paper.get("authors"):
-            print(f"Authors: {', '.join(paper['authors'])}")
-        if paper.get("year"):
-            print(f"Year: {paper['year']}")
-        if paper.get("doi"):
-            print(f"DOI: {paper['doi']}")
-        if paper.get("abstract"):
-            print(f"Abstract: {paper['abstract'][:500]}...")
-        print("-" * 40)
-
 
 def menu():
     print("-----------------------------------------")
@@ -42,44 +26,87 @@ def menu():
 
 def search():
     clear_screen()
-    query = input("Enter your research query: ").strip()
-    print("Refined Query:\n", query)
-    
-    # Get papers
-    papers = search_controller.search(query)
-    
-    # If it's a tuple, unwrap it
-    if isinstance(papers, tuple):
-        papers = papers[0]
-    
-    # Only keep dicts
-    papers = [p for p in papers if isinstance(p, dict)]
-    
-    if not papers:
-        print("No papers found.")
-        input("\nPress Enter to return to main menu...")
+    query = input("Enter your search query: ").strip()
+
+    print("\n🔎 Searching for papers...\n")
+    results = Search.search(query)
+
+    if not results:
+        print("❌ No results found.")
+        input("\nPress Enter to return...")
         return
 
-    # Summarize papers
-    start_time = time.time()
-    summary, confidence = ai_sum.summarize_papers_in_chunks(papers)
-    end_time = time.time()
-    print("\nFinal Summary:\n", summary)
-    print("\nConfidence Level:", confidence)
-    print(f"\nProcessing Time: {end_time - start_time:.2f} seconds")
+    print("🧠 Summarizing abstracts...\n")
+    summary = summarize_abstracts(results)
 
-    # Show paper info
-    print("Would you like to see the papers? (yes/no)")
-    if input().strip().lower() in ["yes", "y"]:
-        view_info(papers)
+    print("=" * 80)
+    print("📌 AI Summary")
+    print("=" * 80)
+    print(summary)
+    print("=" * 80 + "\n")
 
-    input("\nPress Enter to return to main menu...")
+    for idx, work in enumerate(results, start=1):
+        print(f"📄 Result {idx}")
+        print(f"Title: {work.get('title', 'N/A')}")
+        print(f"Year : {work.get('year', 'N/A')}")
+        print("-" * 40)
+
+    input("\nPress Enter to return to the menu...")
+
 
 def filters():
     clear_screen()
-    print("Filter settings are not implemented yet.")
+    print("Current Active Filters: "+ str(Filter.get_active_filters()))
+    print("\nFilter Options:")
+    print("1: Has Abstracts")
+    print("2: Published After Year")
+    print("4: Has DOI")
+    print("5: Cited By Count Greater Than")
+    print("6: Reset Filters")
+    print("7: Return to Main Menu")
+
+    choice = input("Select a filter option (1-7): ").strip()
+    if choice == '1':
+        print("What Value would you like to set for 'Has Abstracts'? (true/false)")
+        value = input(":").strip().lower()
+        if value in ['true', 'false']:
+            Filter.add_filter(f"has_abstract:{value}")
+            print(f"Filter 'Has Abstracts: {value}' added.")
+        else:
+            print("Invalid value. Please enter 'true' or 'false'.")
+    elif choice == '2':
+        print("Enter the year (e.g., 2015):")
+        year = input(":").strip()
+        if year.isdigit():
+            Filter.add_filter(f"publication_year:>{year}")
+            print(f"Filter 'Published After Year: {year}' added.")
+        else:
+            print("Invalid year. Please enter a valid number.")
+    elif choice == '4':
+        print("What Value would you like to set for 'Has DOI'? (true/false)")
+        value = input(":").strip().lower()
+        if value in ['true', 'false']:
+            Filter.add_filter(f"has_doi:{value}")
+            print(f"Filter 'Has DOI: {value}' added.")
+        else:
+            print("Invalid value. Please enter 'true' or 'false'.")
+    elif choice == '5':
+        print("Enter the minimum cited by count (e.g., 50):")
+        count = input(":").strip()
+        if count.isdigit():
+            Filter.add_filter(f"cited_by_count:>{count}")
+            print(f"Filter 'Cited By Count Greater Than: {count}' added.")
+        else:
+            print("Invalid count. Please enter a valid number.")
+    elif choice == '6':
+        Filter.reset_filters()
+        print("All filters have been reset.")
+    elif choice == '7':
+        return
+    
 
 if __name__ == "__main__":
+    Filter.reset_filters()
     while True:
         clear_screen()
         choice = menu()
