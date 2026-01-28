@@ -76,3 +76,12 @@ END DAY 1:
         -Better simple english in summary
         -More filters
         
+END DAY 2:
+        Day 2 was fast and productive, Speed was increased dramatically and retries were implemented
+
+        Still need to do 
+                -Better gui (I made an ok one for a terminal)
+                -filters and summary need to be fixed
+                -Loading bar
+                -Features?
+

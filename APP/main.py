@@ -1,5 +1,5 @@
-import os
-from ENGINE import search_controller,response
+import os,time
+from ENGINE import search_controller,ai_sum
 
 def clear_screen():
     # Clear terminal screen based on OS
@@ -8,7 +8,7 @@ def clear_screen():
 
 def view_info(papers):
     # Display paper information, abstracts truncated to 500 chars
-    for paper in papers[0]:
+    for paper in papers:  # no [0] here
         if paper.get("title"):
             print(f"\nTitle: {paper['title']}")
         if paper.get("authors"):
@@ -20,6 +20,7 @@ def view_info(papers):
         if paper.get("abstract"):
             print(f"Abstract: {paper['abstract'][:500]}...")
         print("-" * 40)
+
 
 def menu():
     print("-----------------------------------------")
@@ -38,20 +39,39 @@ def menu():
         return menu()
     return input_choice
 
+
 def search():
     clear_screen()
     query = input("Enter your research query: ").strip()
     print("Refined Query:\n", query)
+    
+    # Get papers
     papers = search_controller.search(query)
-    summary = response.summarize_abstracts(papers[0])
-    print("\nFinal Summary:\n", summary)
-    if papers[0] not in [None, []]:
-        print("Would you like to see the papers? (yes/no)")
-        if input().strip().lower() == "yes" or input().strip().lower() == "y":
-            view_info(papers)
-
-    else: 
+    
+    # If it's a tuple, unwrap it
+    if isinstance(papers, tuple):
+        papers = papers[0]
+    
+    # Only keep dicts
+    papers = [p for p in papers if isinstance(p, dict)]
+    
+    if not papers:
         print("No papers found.")
+        input("\nPress Enter to return to main menu...")
+        return
+
+    # Summarize papers
+    start_time = time.time()
+    summary, confidence = ai_sum.summarize_papers_in_chunks(papers)
+    end_time = time.time()
+    print("\nFinal Summary:\n", summary)
+    print("\nConfidence Level:", confidence)
+    print(f"\nProcessing Time: {end_time - start_time:.2f} seconds")
+
+    # Show paper info
+    print("Would you like to see the papers? (yes/no)")
+    if input().strip().lower() in ["yes", "y"]:
+        view_info(papers)
 
     input("\nPress Enter to return to main menu...")
 
