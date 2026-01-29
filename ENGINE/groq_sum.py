@@ -1,6 +1,5 @@
 from ENGINE.api_keys import GROQ
 from groq import Groq
-import time
 
 client = Groq(api_key=GROQ)
 MODEL = "llama-3.1-8b-instant"
